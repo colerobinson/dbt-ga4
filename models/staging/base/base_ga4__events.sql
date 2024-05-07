@@ -20,9 +20,9 @@ with source as (
     select
         {{ ga4.base_select_source() }}
     from {{ ref("raw_ga4_union") }}
-    where cast(left(replace(_table_suffix, 'intraday_', ''), 8) as int64) >= {{var('start_date')}}
+    where cast(left(replace(shard_date, 'intraday_', ''), 8) as int64) >= {{var('start_date')}}
     {% if is_incremental() %}
-        and parse_date('%Y%m%d', left(replace(_table_suffix, 'intraday_', ''), 8)) in ({{ partitions_to_replace | join(',') }})
+        and parse_date('%Y%m%d', left(replace(shard_date, 'intraday_', ''), 8)) in ({{ partitions_to_replace | join(',') }})
     {% endif %}
 ),
 renamed as (
