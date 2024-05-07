@@ -8,7 +8,7 @@
 {% if property_ids | length > 1 %}
     {% set queries = [] %}
     {% for property_id in property_ids %}
-        {% set query = "SELECT * FROM " ~ '`' source_project ~ '.analytics_' ~ property_id ~ '.events_*' ~ "`" %}
+        {% set query = "SELECT * FROM " ~ '`' ~ source_project ~ '.analytics_' ~ property_id ~ '.events_*' ~ "`" %}
         {% do queries.append(query) %}
     {% endfor %}
     
